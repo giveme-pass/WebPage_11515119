@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星巴克咖啡 STARBUCKS COFFEE ｜ 提供高品質咖啡與溫暖服務</title>
+  <meta name="description" content="星巴克咖啡致力於為每一位咖啡喜好者與尋求小憩的顧客提供最高品質的咖啡豆、精湛沖煮工藝與溫暖舒適的第三生活空間。">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS Variables & Reset - 品牌色彩以「白色」為基底，融合星巴克經典綠與優雅溫潤色系
+       ========================================================================== */
+    :root {
+      /* 白色基調與淺色背景系統 */
+      --color-white: #ffffff;
+      --color-bg-pure: #ffffff;
+      --color-bg-soft: #f8faf8;
+      --color-bg-warm: #f4f6f4;
+      --color-bg-card: #ffffff;
+      --color-border: #e6ece6;
+      --color-border-light: #f0f4f0;
+      
+      /* 星巴克經典點綴色 */
+      --sb-green-dark: #004d34;
+      --sb-green: #006241;
+      --sb-green-light: #00754a;
+      --sb-green-accent: #d4e9e2;
+      --sb-green-subtle: #f1f8f5;
+      
+      /* 暖金與咖啡輔助色 */
+      --color-gold: #cba258;
+      --color-gold-light: #dfc187;
+      --color-coffee-dark: #2c1a11;
+      --color-coffee-warm: #6a4b35;
+
+      /* 文字顏色 */
+      --text-main: #1f2922;
+      --text-muted: #536259;
+      --text-light: #7a8c82;
+      --text-white: #ffffff;
+
+      /* 字體設定 */
+      --font-body: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Noto Serif TC', serif;
+      --font-en: 'Montserrat', sans-serif;
+
+      /* 陰影與圓角 */
+      --shadow-sm: 0 2px 10px rgba(0, 77, 52, 0.04);
+      --shadow-md: 0 10px 30px rgba(0, 77, 52, 0.08);
+      --shadow-lg: 0 20px 45px rgba(0, 77, 52, 0.12);
+      --shadow-hover: 0 22px 40px rgba(0, 98, 65, 0.16);
+
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 9999px;
+
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg-pure);
+      color: var(--text-main);
+      line-height: 1.75;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition-fast);
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      background: none;
+      transition: var(--transition-fast);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    /* 無障礙焦點 */
+    :focus-visible {
+      outline: 3px solid var(--sb-green);
+      outline-offset: 3px;
+    }
+
+    /* ==========================================================================
+       導覽列 (Navbar)
+       ========================================================================== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border-light);
+      transition: var(--transition-normal);
+    }
+
+    .header.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 700;
+      color: var(--sb-green-dark);
+    }
+
+    .brand-badge {
+      width: 48px;
+      height: 48px;
+      background: var(--sb-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-white);
+      box-shadow: 0 4px 12px rgba(0, 98, 65, 0.25);
+    }
+
+    .brand-text h1 {
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      color: var(--sb-green-dark);
+      font-family: var(--font-heading);
+    }
+
+    .brand-text span {
+      font-size: 0.72rem;
+      font-family: var(--font-en);
+      letter-spacing: 0.14em;
+      color: var(--color-gold);
+      font-weight: 600;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-main);
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--sb-green);
+      transition: var(--transition-fast);
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover {
+      color: var(--sb-green);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.02em;
+      transition: var(--transition-normal);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--sb-green);
+      color: var(--color-white);
+      box-shadow: 0 4px 14px rgba(0, 98, 65, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--sb-green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 98, 65, 0.32);
+    }
+
+    .btn-outline {
+      background: var(--color-white);
+      color: var(--sb-green);
+      border: 1.5px solid var(--sb-green);
+    }
+
+    .btn-outline:hover {
+      background: var(--sb-green-subtle);
+      border-color: var(--sb-green-dark);
+      color: var(--sb-green-dark);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 32px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 100%;
+      height: 2.5px;
+      background: var(--sb-green-dark);
+      border-radius: 4px;
+      transition: var(--transition-normal);
+    }
+
+    /* ==========================================================================
+       Hero 首屏視覺區
+       ========================================================================== */
+    .hero-section {
+      background: linear-gradient(180deg, #ffffff 0%, var(--sb-green-subtle) 100%);
+      padding: 90px 0 110px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 233, 226, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 16px;
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--sb-green);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-eyebrow .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--color-gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.3rem, 4.5vw, 3.4rem);
+      line-height: 1.25;
+      color: var(--sb-green-dark);
+      margin-bottom: 22px;
+      font-weight: 900;
+    }
+
+    .hero-title .highlight {
+      color: var(--sb-green);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-desc {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 36px;
+      max-width: 540px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .hero-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(0, 98, 65, 0.12);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--color-white);
+      border: 1px solid var(--sb-green-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sb-green);
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feature-text strong {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--text-main);
+    }
+
+    .feature-text span {
+      font-size: 0.78rem;
+      color: var(--text-light);
+    }
+
+    /* Hero 圖形與手繪風格咖啡杯 */
+    .hero-visual-card {
+      position: relative;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .coffee-art-container {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coffee-cup-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 15px 25px rgba(0, 77, 52, 0.12));
+    }
+
+    /* 蒸氣漂浮動畫 */
+    .steam-line {
+      animation: steamFloat 3s infinite ease-in-out;
+      transform-origin: bottom center;
+    }
+    .steam-2 { animation-delay: 0.6s; }
+    .steam-3 { animation-delay: 1.2s; }
+
+    @keyframes steamFloat {
+      0% { transform: translateY(0) scaleX(1); opacity: 0; }
+      40% { opacity: 0.8; }
+      100% { transform: translateY(-20px) scaleX(1.3); opacity: 0; }
+    }
+
+    .hero-badge-floating {
+      position: absolute;
+      bottom: -16px;
+      right: 20px;
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--color-gold);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .badge-info h4 {
+      font-size: 0.9rem;
+      color: var(--sb-green-dark);
+      font-weight: 700;
+    }
+
+    .badge-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       通用區塊樣式
+       ========================================================================== */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-en);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sb-green);
+      background: var(--sb-green-subtle);
+      border: 1px solid var(--sb-green-accent);
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.2vw, 2.6rem);
+      color: var(--sb-green-dark);
+      margin-bottom: 16px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* ==========================================================================
+       品牌理念與風格 (About / Philosophy)
+       ========================================================================== */
+    .philosophy-section {
+      background: var(--color-white);
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .philosophy-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 36px 26px;
+      text-align: center;
+      transition: var(--transition-normal);
+      position: relative;
+    }
+
+    .philosophy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0%;
+      height: 3px;
+      background: var(--sb-green);
+      transition: var(--transition-normal);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .philosophy-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--sb-green-accent);
+    }
+
+    .philosophy-card:hover::before {
+      width: 60%;
+    }
+
+    .card-icon-box {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: var(--sb-green-subtle);
+      border: 1.5px solid var(--sb-green-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sb-green);
+      transition: var(--transition-normal);
+    }
+
+    .philosophy-card:hover .card-icon-box {
+      background: var(--sb-green);
+      color: var(--color-white);
+      transform: scale(1.08);
+    }
+
+    .philosophy-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      color: var(--sb-green-dark);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .philosophy-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ==========================================================================
+       精選咖啡系列 (Menu / Product Showcase) - 吸引客戶消費
+       ========================================================================== */
+    .menu-section {
+      background: var(--color-bg-soft);
+      border-top: 1px solid var(--color-border-light);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .tab-btn {
+      padding: 10px 24px;
+      border-radius: var(--radius-pill);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .tab-btn:hover {
+      border-color: var(--sb-green);
+      color: var(--sb-green);
+    }
+
+    .tab-btn.active {
+      background: var(--sb-green);
+      color: var(--color-white);
+      border-color: var(--sb-green);
+      box-shadow: 0 4px 12px rgba(0, 98, 65, 0.25);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .product-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-normal);
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--sb-green-accent);
+    }
+
+    .product-image-box {
+      height: 220px;
+      background: linear-gradient(135deg, #f7faf7 0%, var(--sb-green-subtle) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--color-white);
+      color: var(--sb-green-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .product-body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .product-name {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      color: var(--sb-green-dark);
+      font-weight: 700;
+    }
+
+    .product-name-en {
+      font-family: var(--font-en);
+      font-size: 0.78rem;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .product-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--sb-green);
+      font-family: var(--font-en);
+    }
+
+    .product-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .flavor-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .flavor-pill {
+      font-size: 0.74rem;
+      background: var(--color-bg-soft);
+      color: var(--text-muted);
+      padding: 3px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--color-border-light);
+    }
+
+    .product-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-border-light);
+    }
+
+    .btn-order-item {
+      width: 100%;
+      padding: 10px 18px;
+      background: var(--color-white);
+      color: var(--sb-green);
+      border: 1.5px solid var(--sb-green);
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition-fast);
+    }
+
+    .btn-order-item:hover {
+      background: var(--sb-green);
+      color: var(--color-white);
+    }
+
+    /* ==========================================================================
+       專為小憩之人打造的「第三生活空間」
+       ========================================================================== */
+    .ambiance-section {
+      background: var(--color-white);
+    }
+
+    .ambiance-box {
+      background: linear-gradient(135deg, var(--sb-green-subtle) 0%, #ffffff 100%);
+      border: 1px solid var(--sb-green-accent);
+      border-radius: var(--radius-lg);
+      padding: 60px 50px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .ambiance-content h3 {
+      font-family: var(--font-heading);
+      font-size: 2.1rem;
+      color: var(--sb-green-dark);
+      margin-bottom: 20px;
+      line-height: 1.35;
+    }
+
+    .ambiance-content p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .amenities-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .amenity-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--color-white);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .amenity-icon {
+      color: var(--sb-green);
+      font-size: 1.3rem;
+    }
+
+    .amenity-text strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--sb-green-dark);
+    }
+
+    .amenity-text span {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .ambiance-illustration {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       星禮程專屬禮遇 (Loyalty / Incentive)
+       ========================================================================== */
+    .rewards-section {
+      background: linear-gradient(180deg, var(--color-white) 0%, var(--sb-green-dark) 100%);
+      color: var(--color-white);
+      padding-top: 40px;
+    }
+
+    .rewards-banner {
+      background: var(--sb-green-dark);
+      border-radius: var(--radius-lg);
+      padding: 60px 50px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .rewards-content h3 {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      color: var(--color-white);
+    }
+
+    .rewards-content p {
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .rewards-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .perk-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.98rem;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .perk-check {
+      width: 24px;
+      height: 24px;
+      background: var(--color-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sb-green-dark);
+      font-size: 0.8rem;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .rewards-card-preview {
+      background: linear-gradient(135deg, #0f3d2e 0%, #002b1d 100%);
+      border: 1px solid var(--color-gold);
+      border-radius: var(--radius-md);
+      padding: 36px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rewards-card-preview::before {
+      content: '★';
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      font-size: 160px;
+      color: rgba(203, 162, 88, 0.1);
+      font-family: var(--font-en);
+      user-select: none;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .card-title {
+      font-family: var(--font-en);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--color-gold);
+    }
+
+    .card-number {
+      font-family: var(--font-en);
+      font-size: 1.2rem;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 24px;
+    }
+
+    .card-footer-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ==========================================================================
+       門市尋訪與服務資訊 (Store Locator)
+       ========================================================================== */
+    .store-section {
+      background: var(--color-white);
+      padding-top: 100px;
+    }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .store-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .store-card h4 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--sb-green-dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .store-badge {
+      font-size: 0.75rem;
+      background: var(--sb-green-subtle);
+      color: var(--sb-green);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-weight: 600;
+    }
+
+    .store-info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .store-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .store-info-item svg {
+      flex-shrink: 0;
+      color: var(--sb-green);
+      margin-top: 4px;
+    }
+
+    .store-map-placeholder {
+      background: var(--sb-green-subtle);
+      border: 1px dashed var(--sb-green);
+      border-radius: var(--radius-md);
+      height: 100%;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+      color: var(--sb-green-dark);
+    }
+
+    /* ==========================================================================
+       頁尾 (Footer)
+       ========================================================================== */
+    .footer {
+      background: #0f1c16;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 80px 0 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand h2 {
+      font-family: var(--font-heading);
+      color: var(--color-white);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.8;
+      max-width: 320px;
+      margin-bottom: 24px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-heading);
+      color: var(--color-white);
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: var(--color-gold);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.65);
+      transition: var(--transition-fast);
+    }
+
+    .footer-links a:hover {
+      color: var(--color-white);
+      padding-left: 4px;
+    }
+
+    .footer-bottom {
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* 浮動提示框 (Toast Notification) */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--sb-green-dark);
+      color: var(--color-white);
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      border-left: 5px solid var(--color-gold);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2000;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: var(--transition-normal);
+      font-size: 0.95rem;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       響應式設計 (RWD Media Queries)
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-desc {
+        margin-inline: auto;
+      }
+      .hero-cta-group {
+        justify-content: center;
+      }
+      .hero-features {
+        max-width: 600px;
+        margin-inline: auto;
+      }
+      .philosophy-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .ambiance-box {
+        grid-template-columns: 1fr;
+        padding: 40px 30px;
+      }
+      .rewards-banner {
+        grid-template-columns: 1fr;
+        padding: 40px 30px;
+      }
+      .store-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--color-white);
+        border-bottom: 1px solid var(--color-border);
+        padding: 24px;
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-120%);
+        transition: var(--transition-normal);
+        z-index: 999;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+      .mobile-menu a {
+        padding: 14px 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--sb-green-dark);
+        border-bottom: 1px solid var(--color-border-light);
+      }
+      .hero-features {
+        grid-template-columns: 1fr;
+      }
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+      }
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      .amenities-list {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       頁首導覽 (Header)
+       ========================================================================== -->
+  <header class="header" id="header">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo" aria-label="星巴克咖啡 首頁">
+        <div class="brand-badge" aria-hidden="true">
+          <!-- 簡約美人魚星巴克星徽造型 -->
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>星巴克咖啡</h1>
+          <span>STARBUCKS COFFEE</span>
+        </div>
+      </a>
+
+      <!-- 電腦版選單 -->
+      <nav aria-label="主選單">
+        <ul class="nav-links">
+          <li><a href="#about">品牌品質</a></li>
+          <li><a href="#menu">精選飲品</a></li>
+          <li><a href="#ambiance">小憩時光</a></li>
+          <li><a href="#rewards">星禮程</a></li>
+          <li><a href="#store">門市據點</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#menu" class="btn btn-primary">立即點餐</a>
+      </div>
+
+      <!-- 手機版漢堡按鈕 -->
+      <button class="hamburger" id="hamburgerBtn" aria-label="切換導覽選單" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- 手機版展開選單 -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="#about" class="mobile-nav-link">品牌品質</a>
+      <a href="#menu" class="mobile-nav-link">精選飲品</a>
+      <a href="#ambiance" class="mobile-nav-link">小憩時光</a>
+      <a href="#rewards" class="mobile-nav-link">星禮程優惠</a>
+      <a href="#store" class="mobile-nav-link">門市據點</a>
+      <a href="#menu" class="btn btn-primary" style="margin-top: 16px;">線上快速點餐</a>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       首屏主視覺區 (Hero Section)
+       ========================================================================== -->
+  <section class="hero-section" id="hero">
+    <div class="hero-bg-circle" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="dot"></span>
+          <span>每一天，為您用心淬鍊一杯好咖啡</span>
+        </div>
+        <h2 class="hero-title">
+          以高品質的咖啡與服務，<br>
+          溫暖您的<span class="highlight">小憩時光</span>。
+        </h2>
+        <p class="hero-desc">
+          嚴選 100% 莊園級阿拉比卡咖啡豆，搭配專業咖啡大師的細膩手藝。在純粹明亮的空間裡，無論是晨間甦醒或是午後片刻停留，我們始終以誠摯服務為您遞上一杯香醇。
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#menu" class="btn btn-primary">
+            <span>探索精選咖啡</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#store" class="btn btn-outline">尋找鄰近門市</a>
+        </div>
+
+        <div class="hero-features">
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+            </div>
+            <div class="feature-text">
+              <strong>100% 阿拉比卡</strong>
+              <span>全球頂級莊園嚴選</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+            </div>
+            <div class="feature-text">
+              <strong>職人客製手作</strong>
+              <span>冷熱甜度客製化</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <div class="feature-text">
+              <strong>舒適第三空間</strong>
+              <span>愜意氛圍放鬆小憩</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右側咖啡視覺卡片 -->
+      <div class="hero-visual-card">
+        <div class="coffee-art-container">
+          <!-- 自給自足的純 SVG 咖啡拉花杯與飄揚蒸氣 -->
+          <svg class="coffee-cup-svg" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- 咖啡托盤 -->
+            <ellipse cx="120" cy="195" rx="85" ry="18" fill="#E6ECE6"/>
+            <ellipse cx="120" cy="192" rx="75" ry="14" fill="#FFFFFF"/>
+            
+            <!-- 咖啡杯身 -->
+            <path d="M60 85 C60 170, 75 180, 120 180 C165 180, 180 170, 180 85 Z" fill="#FFFFFF" stroke="#006241" stroke-width="4"/>
+            <!-- 杯把 -->
+            <path d="M178 100 C205 100, 205 150, 175 155" fill="none" stroke="#006241" stroke-width="6" stroke-linecap="round"/>
+            
+            <!-- 咖啡液面 -->
+            <ellipse cx="120" cy="85" rx="60" ry="20" fill="#6A4B35"/>
+            <!-- 濃縮甘醇奶泡拉花 -->
+            <ellipse cx="120" cy="85" rx="46" ry="14" fill="#F4E8D1"/>
+            <path d="M120 74 C110 74, 102 85, 120 94 C138 85, 130 74, 120 74 Z" fill="#FFFFFF"/>
+            <circle cx="120" cy="85" r="4" fill="#6A4B35"/>
+            
+            <!-- 蒸氣動畫線條 -->
+            <path class="steam-line steam-1" d="M105 60 C98 48, 112 36, 105 24" stroke="#006241" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+            <path class="steam-line steam-2" d="M120 56 C114 42, 126 30, 120 16" stroke="#00754A" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+            <path class="steam-line steam-3" d="M135 60 C128 48, 142 36, 135 24" stroke="#006241" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+          </svg>
+        </div>
+
+        <h3 style="font-family: var(--font-heading); color: var(--sb-green-dark); font-size: 1.3rem; margin-bottom: 6px;">
+          經典那堤 Caffè Latte
+        </h3>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">
+          星巴克經典濃縮咖啡，覆上柔滑蒸奶與綿密奶泡
+        </p>
+
+        <div class="hero-badge-floating">
+          <div class="badge-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <div class="badge-info">
+            <h4>經典口碑推薦</h4>
+            <p>星巴克顧客票選最喜愛風味</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       品牌理念與品質 (About Section)
+       ========================================================================== */ -->
+  <section class="section philosophy-section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">OUR CRAFT & SPIRIT</span>
+        <h2 class="section-title">對高品質的堅持，成就每一杯香濃</h2>
+        <p class="section-subtitle">
+          我們深信，一杯出色的咖啡不僅來自優質的咖啡豆，更來自對每一道工序的嚴謹標準與對客人的溫暖微笑。
+        </p>
+      </div>
+
+      <div class="philosophy-grid">
+        <!-- 卡片 1 -->
+        <article class="philosophy-card">
+          <div class="card-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+              <path d="M12 6a6 6 0 0 0-6 6c0 3 2 5 6 8 4-3 6-5 6-8a6 6 0 0 0-6-6z"></path>
+            </svg>
+          </div>
+          <h3>精品咖啡豆來源</h3>
+          <p>只選用世界各大優質產區的阿拉比卡咖啡豆，堅守道德採購，為咖啡農與環境創造永續價值。</p>
+        </article>
+
+        <!-- 卡片 2 -->
+        <article class="philosophy-card">
+          <div class="card-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+            </svg>
+          </div>
+          <h3>大師級烘焙曲線</h3>
+          <p>精準拿捏淺焙、中焙與深焙的溫度與秒數，將每顆咖啡豆蘊含的花香、果酸與可可焦糖完美釋放。</p>
+        </article>
+
+        <!-- 卡片 3 -->
+        <article class="philosophy-card">
+          <div class="card-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <h3>星級咖啡師服務</h3>
+          <p>每一位星巴克夥伴均經過嚴格考核與品評培訓，傾聽您的喜好，用心調製專屬於您的特調咖啡。</p>
+        </article>
+
+        <!-- 卡片 4 -->
+        <article class="philosophy-card">
+          <div class="card-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3>高品質堅持承諾</h3>
+          <p>從生豆篩選到出杯溫度，若您對咖啡風味有任何不滿意，我們承諾為您重新沖調，直到您舒心滿意。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       精選咖啡菜單 (Menu Showcase) - 吸引消費者消費
+       ========================================================================== -->
+  <section class="section menu-section" id="menu">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FEATURED SELECTION</span>
+        <h2 class="section-title">遇見屬於您的風味咖啡</h2>
+        <p class="section-subtitle">
+          為咖啡愛好者帶來多重味覺饗宴，挑選今天最想品嚐的那一杯。
+        </p>
+      </div>
+
+      <!-- 分類選單 -->
+      <div class="category-tabs" role="tablist" aria-label="咖啡分類切換">
+        <button class="tab-btn active" data-category="all" role="tab" aria-selected="true">全部推薦</button>
+        <button class="tab-btn" data-category="espresso" role="tab" aria-selected="false">義式經典</button>
+        <button class="tab-btn" data-category="reserve" role="tab" aria-selected="false">典藏手沖</button>
+        <button class="tab-btn" data-category="frappuccino" role="tab" aria-selected="false">星冰樂</button>
+        <button class="tab-btn" data-category="seasonal" role="tab" aria-selected="false">季節特調</button>
+      </div>
+
+      <!-- 商品卡片列表 -->
+      <div class="menu-grid" id="productGrid">
+
+        <!-- 商品 1：經典那堤 -->
+        <article class="product-card" data-category="espresso">
+          <div class="product-image-box">
+            <span class="product-tag">人氣第一</span>
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+              <rect x="25" y="25" width="50" height="58" rx="8" fill="#FFFFFF" stroke="#006241" stroke-width="2.5"/>
+              <rect x="29" y="32" width="42" height="38" rx="4" fill="#6A4B35"/>
+              <ellipse cx="50" cy="34" rx="20" ry="6" fill="#F4E8D1"/>
+              <path d="M75 38 C86 38, 86 64, 75 66" stroke="#006241" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="product-body">
+            <div class="product-header">
+              <h3 class="product-name">經典那堤</h3>
+              <span class="product-price">NT$ 135</span>
+            </div>
+            <div class="product-name-en">Caffè Latte</div>
+            <p class="product-desc">濃郁醇厚的義式濃縮咖啡，搭配新鮮優質蒸煮牛奶，覆上一層細緻綿密的純白奶泡。</p>
+            <div class="flavor-pills">
+              <span class="flavor-pill">滑順乳香</span>
+              <span class="flavor-pill">焦糖堅果尾韻</span>
+              <span class="flavor-pill">經典推薦</span>
+            </div>
+            <div class="product-card-footer">
+              <button class="btn-order-item" onclick="orderCoffee('經典那堤')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>立即點選</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 2：美式咖啡 -->
+        <article class="product-card" data-category="espresso">
+          <div class="product-image-box">
+            <span class="product-tag">純粹黑咖</span>
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+              <rect x="25" y="25" width="50" height="58" rx="8" fill="#FFFFFF" stroke="#006241" stroke-width="2.5"/>
+              <rect x="29" y="30" width="42" height="48" rx="4" fill="#2C1A11"/>
+              <ellipse cx="50" cy="32" rx="20" ry="4" fill="#CBA258" opacity="0.6"/>
+              <path d="M75 38 C86 38, 86 64, 75 66" stroke="#006241" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="product-body">
+            <div class="product-header">
+              <h3 class="product-name">美式咖啡</h3>
+              <span class="product-price">NT$ 110</span>
+            </div>
+            <div class="product-name-en">Caffè Americano</div>
+            <p class="product-desc">使用星巴克深烘焙濃縮咖啡萃取，注入熱水或冰塊，呈現清透、微甘且層次分明的黑咖啡本色。</p>
+            <div class="flavor-pills">
+              <span class="flavor-pill">零熱量負擔</span>
+              <span class="flavor-pill">濃黑甘醇</span>
+              <span class="flavor-pill">提神首選</span>
+            </div>
+            <div class="product-card-footer">
+              <button class="btn-order-item" onclick="orderCoffee('美式咖啡')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>立即點選</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 3：焦糖瑪奇朵 -->
+        <article class="product-card" data-category="espresso">
+          <div class="product-image-box">
+            <span class="product-tag">甜蜜心意</span>
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+              <rect x="25" y="25" width="50" height="58" rx="8" fill="#FFFFFF" stroke="#006241" stroke-width="2.5"/>
+              <rect x="29" y="32" width="42" height="20" rx="4" fill="#F4E8D1"/>
+              <rect x="29" y="52" width="42" height="28" rx="2" fill="#6A4B35"/>
+              <!-- 焦糖網格 -->
+              <path d="M35 34 L65 34 M35 38 L65 38 M40 32 L40 40 M50 32 L50 40 M60 32 L60 40" stroke="#CBA258" stroke-width="2"/>
+              <path d="M75 38 C86 38, 86 64, 75 66" stroke="#006241" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="product-body">
+            <div class="product-header">
+              <h3 class="product-name">焦糖瑪奇朵</h3>
+              <span class="product-price">NT$ 155</span>
+            </div>
+            <div class="product-name-en">Caramel Macchiato</div>
+            <p class="product-desc">香草風味糖漿融合新鮮熱蒸奶，淋上濃縮咖啡並畫上經典網格焦糖醬，層次迷人。</p>
+            <div class="flavor-pills">
+              <span class="flavor-pill">香草香氣</span>
+              <span class="flavor-pill">現淋焦糖</span>
+              <span class="flavor-pill">甜美下午茶</span>
+            </div>
+            <div class="product-card-footer">
+              <button class="btn-order-item" onclick="orderCoffee('焦糖瑪奇朵')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>立即點選</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 4：典藏手沖 單一產區 -->
+        <article class="product-card" data-category="reserve">
+          <div class="product-image-box">
+            <span class="product-tag" style="background: #2c1a11; color: #fff;">RESERVE 典藏</span>
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+              <!-- 手沖濾杯造型 -->
+              <polygon points="20 25 80 25 65 60 35 60" fill="#FFFFFF" stroke="#006241" stroke-width="2.5"/>
+              <path d="M35 60 L30 85 L70 85 L65 60 Z" fill="#F1F8F5" stroke="#006241" stroke-width="2"/>
+              <ellipse cx="50" cy="78" rx="15" ry="5" fill="#6A4B35"/>
+              <!-- 金色五角星 -->
+              <polygon points="50 36 53 44 61 44 55 49 57 57 50 52 43 57 45 49 39 44 47 44" fill="#CBA258"/>
+            </svg>
+          </div>
+          <div class="product-body">
+            <div class="product-header">
+              <h3 class="product-name">典藏手沖單品咖啡</h3>
+              <span class="product-price">NT$ 220</span>
+            </div>
+            <div class="product-name-en">Reserve Pour-Over Single Origin</div>
+            <p class="product-desc">限量進口微批次莊園豆，由星巴克認證黑圍裙大師精準控水與沖煮，釋放明亮花果酸香。</p>
+            <div class="flavor-pills">
+              <span class="flavor-pill">精品莊園豆</span>
+              <span class="flavor-pill">柑橘茉莉花香</span>
+              <span class="flavor-pill">咖啡饕客推</span>
+            </div>
+            <div class="product-card-footer">
+              <button class="btn-order-item" onclick="orderCoffee('典藏手沖單品咖啡')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>立即點選</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 5：摩卡可可碎片星冰樂 -->
+        <article class="product-card" data-category="frappuccino">
+          <div class="product-image-box">
+            <span class="product-tag">冰爽極致</span>
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+              <!-- 星冰樂透明高杯與鮮奶油圓頂 -->
+              <path d="M30 35 L36 85 L64 85 L70 35 Z" fill="#FFFFFF" stroke="#006241" stroke-width="2.5"/>
+              <path d="M33 42 L67 42 L63 82 L37 82 Z" fill="#6A4B35"/>
+              <!-- 鮮奶油圓頂 -->
+              <path d="M32 35 C32 15, 68 15, 68 35 Z" fill="#FFFFFF" stroke="#E6ECE6" stroke-width="2"/>
+              <!-- 綠色吸管 -->
+              <line x1="58" y1="8" x2="48" y2="55" stroke="#00754A" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="product-body">
+            <div class="product-header">
+              <h3 class="product-name">摩卡可可碎片星冰樂</h3>
+              <span class="product-price">NT$ 165</span>
+            </div>
+            <div class="product-name-en">Java Chip Frappuccino</div>
+            <p class="product-desc">星巴克經典咖啡結合香濃摩卡醬與可可碎片，攪打成細緻碎冰，擠上綿密鮮奶油與摩卡醬。</p>
+            <div class="flavor-pills">
+              <span class="flavor-pill">脆口巧克力</span>
+              <span class="flavor-pill">沁涼消暑</span>
+              <span class="flavor-pill">甜食控最愛</span>
+            </div>
+            <div class="product-card-footer">
+              <button class="btn-order-item" onclick="orderCoffee('摩卡可可碎片星冰樂')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>立即點選</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 商品 6：季節限定 特調拿鐵 -->
+        <article class="product-card" data-category="seasonal">
+          <div class="product-image-box">
+            <span class="product-tag" style="background: var(--color-gold); color: #fff;">季節限定</span>
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+              <rect x="25" y="25" width="50" height="58" rx="8" fill="#FFFFFF" stroke="#006241" stroke-width="2.5"/>
+              <rect x="29" y="30" width="42" height="48" rx="4" fill="#CBA258" opacity="0.8"/>
+              <ellipse cx="50" cy="34" rx="20" ry="6" fill="#FFFFFF"/>
+              <!-- 肉桂/太妃糖灑花點綴 -->
+              <circle cx="45" cy="34" r="1.5" fill="#6A4B35"/>
+              <circle cx="50" cy="32" r="1.5" fill="#6A4B35"/>
+              <circle cx="55" cy="35" r="1.5" fill="#6A4B35"/>
+              <path d="M75 38 C86 38, 86 64, 75 66" stroke="#006241" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="product-body">
+            <div class="product-header">
+              <h3 class="product-name">太妃核果風味那堤</h3>
+              <span class="product-price">NT$ 170</span>
+            </div>
+            <div class="product-name-en">Toffee Nut Crunch Latte</div>
+            <p class="product-desc">令人引頸期盼的季節暖心回歸。濃縮咖啡與滑順牛奶，融入香甜太妃核果糖漿與香脆糖粒。</p>
+            <div class="flavor-pills">
+              <span class="flavor-pill">濃香核果</span>
+              <span class="flavor-pill">酥脆蜜糖粒</span>
+              <span class="flavor-pill">冬日限定</span>
+            </div>
+            <div class="product-card-footer">
+              <button class="btn-order-item" onclick="orderCoffee('太妃核果風味那堤')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>立即點選</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       專為小憩之人打造的「第三生活空間」 (The Third Place)
+       ========================================================================== -->
+  <section class="section ambiance-section" id="ambiance">
+    <div class="container">
+      <div class="ambiance-box">
+        <div class="ambiance-content">
+          <span class="section-tag">THE THIRD PLACE</span>
+          <h3>在忙碌日常中，<br>為自己預約片刻愜意</h3>
+          <p>
+            除了家與辦公室，星巴克是您專屬的「第三空間」。這裡充滿溫潤的咖啡香氣、流淌著輕鬆柔和的爵士樂調，無論您想捧一本書靜心閱讀、專注工作，或是與摯友小聚談心，都能在這裡找到最舒服的角落。
+          </p>
+
+          <div class="amenities-list">
+            <div class="amenity-card">
+              <div class="amenity-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+              </div>
+              <div class="amenity-text">
+                <strong>高速穩定 Wi-Fi</strong>
+                <span>全門市免費無限暢享</span>
+              </div>
+            </div>
+
+            <div class="amenity-card">
+              <div class="amenity-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              </div>
+              <div class="amenity-text">
+                <strong>座席充電插座</strong>
+                <span>筆電與手機隨時充電</span>
+              </div>
+            </div>
+
+            <div class="amenity-card">
+              <div class="amenity-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+              </div>
+              <div class="amenity-text">
+                <strong>放鬆心靈選樂</strong>
+                <span>精選星巴克專屬歌單</span>
+              </div>
+            </div>
+
+            <div class="amenity-card">
+              <div class="amenity-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+              </div>
+              <div class="amenity-text">
+                <strong>夥伴溫暖相伴</strong>
+                <span>每一次交談都真心親切</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ambiance-illustration">
+          <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%;">
+            <!-- 窗景與陽光 -->
+            <rect x="30" y="20" width="240" height="150" rx="10" fill="#F1F8F5" stroke="#E6ECE6" stroke-width="2"/>
+            <line x1="150" y1="20" x2="150" y2="170" stroke="#E6ECE6" stroke-width="2"/>
+            <line x1="30" y1="95" x2="270" y2="95" stroke="#E6ECE6" stroke-width="2"/>
+            <circle cx="80" cy="55" r="16" fill="#F4E8D1"/>
+            
+            <!-- 窗邊沙發與木桌 -->
+            <rect x="70" y="160" width="160" height="14" rx="4" fill="#CBA258"/>
+            <rect x="90" y="174" width="10" height="40" fill="#6A4B35"/>
+            <rect x="200" y="174" width="10" height="40" fill="#6A4B35"/>
+            
+            <!-- 桌上的白瓷咖啡杯 -->
+            <path d="M135 142 L165 142 L160 160 L140 160 Z" fill="#FFFFFF" stroke="#006241" stroke-width="2"/>
+            <path d="M164 146 C172 146, 172 156, 161 157" stroke="#006241" stroke-width="1.8" fill="none"/>
+            <ellipse cx="150" cy="142" rx="15" ry="3" fill="#6A4B35"/>
+            
+            <!-- 綠意植栽盆景 -->
+            <path d="M215 140 L235 140 L230 160 L220 160 Z" fill="#FFFFFF" stroke="#E6ECE6" stroke-width="1.5"/>
+            <path d="M225 140 Q215 120 220 110 Q230 125 225 140" fill="#00754A"/>
+            <path d="M225 140 Q238 122 235 115 Q228 128 225 140" fill="#006241"/>
+          </svg>
+          <p style="margin-top: 18px; font-size: 0.95rem; font-weight: 600; color: var(--sb-green-dark);">
+            「放慢腳步，享受當下。」
+          </p>
+          <span style="font-size: 0.8rem; color: var(--text-light);">歡迎帶著您喜愛的一本書或筆電，共享片刻悠閒</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       星禮程優惠區塊 (Starbucks Rewards) - 促進客戶消費與黏著度
+       ========================================================================== -->
+  <section class="section rewards-section" id="rewards">
+    <div class="container">
+      <div class="rewards-banner">
+        <div class="rewards-content">
+          <span class="section-tag" style="background: rgba(203, 162, 88, 0.2); color: var(--color-gold); border-color: var(--color-gold);">STARBUCKS REWARDS</span>
+          <h3>加入星禮程，點亮每一杯的驚喜</h3>
+          <p>
+            每一次的咖啡香氣，都是為您累積星星的美好里程。立即下載星巴克 App 加入會員，專享專屬禮遇與豐富驚喜優惠！
+          </p>
+
+          <div class="rewards-perks">
+            <div class="perk-item">
+              <span class="perk-check">✓</span>
+              <span>新會員加入即享 <strong>首杯飲料免費升級</strong> 禮遇</span>
+            </div>
+            <div class="perk-item">
+              <span class="perk-check">✓</span>
+              <span>消費滿 35 元累積 1 顆星星，累積星數 <strong>兌換免費咖啡與精選糕點</strong></span>
+            </div>
+            <div class="perk-item">
+              <span class="perk-check">✓</span>
+              <span>專屬生日月份驚喜贈禮、新品搶先品飲特權</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <button class="btn btn-primary" style="background: var(--color-gold); color: var(--sb-green-dark);" onclick="showToast('🎉 歡迎加入！請下載星巴克 App 完成註冊即可領取專屬禮券')">
+              立即免費加入
+            </button>
+            <a href="#menu" class="btn btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4);">
+              查看完整會員禮遇
+            </a>
+          </div>
+        </div>
+
+        <div class="rewards-card-preview" aria-hidden="true">
+          <div class="card-top">
+            <span class="card-title">STARBUCKS®</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <div class="card-number">•••• •••• •••• 8868</div>
+          <div class="card-footer-info">
+            <div>
+              <span style="display: block; font-size: 0.65rem; text-transform: uppercase;">MEMBER NAME</span>
+              <strong style="color: #fff; font-size: 0.95rem;">COFFEE LOVER</strong>
+            </div>
+            <div style="text-align: right;">
+              <span style="display: block; font-size: 0.65rem; text-transform: uppercase;">STAR LEVEL</span>
+              <strong style="color: var(--color-gold); font-size: 0.95rem;">GOLD 璀璨金星</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       門市尋訪與營業時間 (Store Locator & Contact)
+       ========================================================================== -->
+  <section class="section store-section" id="store">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FIND A STORE</span>
+        <h2 class="section-title">走進離您最近的星巴克</h2>
+        <p class="section-subtitle">
+          全台數百家門市，隨時為您準備好那一份熟悉的咖啡香氣與誠摯問候。
+        </p>
+      </div>
+
+      <div class="store-grid">
+        <div class="store-card">
+          <h4>
+            <span>台北典藏旗艦門市</span>
+            <span class="store-badge">Reserve 典藏吧台</span>
+          </h4>
+          <ul class="store-info-list">
+            <li class="store-info-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>台北市大安區忠孝東路四段 101 號（近捷運忠孝復興站 3 號出口）</span>
+            </li>
+            <li class="store-info-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>週一至週日 07:00 – 22:30（全年無休）</span>
+            </li>
+            <li class="store-info-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>(02) 2771-8888</span>
+            </li>
+            <li class="store-info-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>提供手沖典藏吧台、Nitro 氮氣冷萃、舒適沙發區、插座、免費 Wi-Fi</span>
+            </li>
+          </ul>
+
+          <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <button class="btn btn-primary" onclick="showToast('📍 已為您導航至最近的台北典藏旗艦門市！')">開始導航</button>
+            <button class="btn btn-outline" onclick="showToast('📞 門市電話已複製：(02) 2771-8888')">聯絡門市</button>
+          </div>
+        </div>
+
+        <div class="store-map-placeholder">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 16px;">
+            <path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"></path>
+            <line x1="8" y1="2" x2="8" y2="18"></line>
+            <line x1="16" y1="6" x2="16" y2="22"></line>
+          </svg>
+          <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 8px;">門市快速定位地圖</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 320px; margin-bottom: 20px;">
+            開啟定位權限，系統將自動推薦您身邊步行 5 分鐘內即可抵達的星巴克門市。
+          </p>
+          <button class="btn btn-outline" style="background: #fff;" onclick="showToast('🧭 正在搜尋周遭 500 公尺內的星巴克門市...')">
+            偵測鄰近門市
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       頁尾 (Footer)
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h2>星巴克咖啡</h2>
+          <p>
+            專注於最高品質的咖啡與服務。每一天、每一杯，為您的日常帶來醇厚溫暖的驚喜與力量。
+          </p>
+          <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.4);">
+            客服專線：0800-000-482<br>
+            服務時間：週一至週五 09:00 - 18:00
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>精選飲品</h4>
+          <ul class="footer-links">
+            <li><a href="#menu">義式濃縮咖啡</a></li>
+            <li><a href="#menu">星冰樂系列</a></li>
+            <li><a href="#menu">典藏單品手沖</a></li>
+            <li><a href="#menu">茶瓦納 TEAVANA</a></li>
+            <li><a href="#menu">新鮮烘焙糕點</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>星巴克體驗</h4>
+          <ul class="footer-links">
+            <li><a href="#about">咖啡豆採購與永續</a></li>
+            <li><a href="#about">咖啡師專業培訓</a></li>
+            <li><a href="#ambiance">門市第三空間</a></li>
+            <li><a href="#rewards">星禮程會員方案</a></li>
+            <li><a href="#store">特色門市導覽</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>顧客服務</h4>
+          <ul class="footer-links">
+            <li><a href="#store">門市據點查詢</a></li>
+            <li><a href="#rewards">星巴克隨行卡專區</a></li>
+            <li><a href="#menu">線上預約點餐</a></li>
+            <li><a href="#header">常見問題 FAQ</a></li>
+            <li><a href="#header">隱私權政策條款</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 STARBUCKS COFFEE COMPANY. ALL RIGHTS RESERVED. ｜ 本網頁依據課程網站規格規劃製作
+        </div>
+        <div>
+          設計理念：高品質咖啡、細膩服務、小憩心靈空間
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 浮動提示彈窗 (Toast) -->
+  <div class="toast" id="toastBox" role="alert" aria-live="assertive">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toastMessage">已成功加入點餐清單！</span>
+  </div>
+
+  <!-- ==========================================================================
+       互動邏輯 JavaScript
+       ========================================================================== -->
+  <script>
+    // 1. 導覽列滾動狀態監聽
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // 2. 手機版選單切換
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburgerBtn.setAttribute('aria-expanded', isOpen);
+      mobileMenu.setAttribute('aria-hidden', !isOpen);
+    });
+
+    // 點擊手機選單項目自動收合
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    // 3. 咖啡品項分類切換 (Filter Tabs)
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // 切換按鈕狀態
+        tabBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const category = btn.getAttribute('data-category');
+
+        productCards.forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 4. 點餐與互動 Toast 提示
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toastBox');
+      const toastMsg = document.getElementById('toastMessage');
+      
+      toastMsg.textContent = message;
+      toast.classList.add('show');
+      
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    function orderCoffee(coffeeName) {
+      showToast(`☕ 已將「${coffeeName}」加入您的點餐清單！即刻享受美味`);
+    }
+
+    // 5. 滾動進場淡入監聽 (IntersectionObserver)
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.12
+    };
+
+    const fadeInObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.philosophy-card, .product-card, .ambiance-box').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      fadeInObserver.observe(el);
+    });
+  </script>
+</body>
+</html>
